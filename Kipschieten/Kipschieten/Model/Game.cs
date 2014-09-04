@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Kipschieten.Controller;
+using System.Windows.Forms;
 
 namespace Kipschieten.Model
 {
@@ -53,11 +54,7 @@ namespace Kipschieten.Model
 
         private void paint()
         {
-            for (int i = 0; i < observers.Count; i++)
-            {
-                observers[i].OnNext(this);
-            }
-
+            Program.blockingqeueu.set(this);
         }
 
         private void render()

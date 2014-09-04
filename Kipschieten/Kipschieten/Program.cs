@@ -12,6 +12,9 @@ namespace Kipschieten
 {
     static class Program
     {
+
+        public static BlockingContainer<Game> blockingqeueu = new BlockingContainer<Game>();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -24,13 +27,13 @@ namespace Kipschieten
             int Width = 300, Height = 301;
             GameController gameController = new GameController();
             Game game = new Game(gameController, Width, Height);
-            InputController inputController = new InputController(game);
-            Form1 view = new Form1(Width, Height, inputController);
-            view.Subscribe(game);
+            Form1 view = new Form1(Width, Height);
             new Thread(() => { gameController.start(); }).Start();
-            view.Show();
+            new Thread(() => { view.Show(); view.draw(); }).Start();
             game.start();
 
         }
+
+
     }
 }

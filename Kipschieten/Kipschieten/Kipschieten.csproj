@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\GameController.cs" />
-    <Compile Include="Controller\InputController.cs" />
+    <Compile Include="Model\BlockingContainer.cs" />
     <Compile Include="Model\Field.cs" />
     <Compile Include="Model\Game.cs" />
     <Compile Include="Model\Kip.cs" />
