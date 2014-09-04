@@ -17,12 +17,15 @@ namespace Kipschieten.View
         private InputController Controller { get; set; }
 
         private IDisposable unsubscriber;
-
+        private Label ScoreLabel;
         public Form1(int w, int h, InputController controller)
         {
             InitializeComponent();
             ClientSize = new Size(w, h);
             Controller = controller;
+            ScoreLabel = new Label();
+            ScoreLabel.Location = new Point(13, 13);
+            Controls.Add(ScoreLabel);
             Controller.setView(this);
         }
 
@@ -32,10 +35,8 @@ namespace Kipschieten.View
             Graphics grfx = CreateGraphics();
             grfx.Clear(Color.White);
 
-            Label ScoreLabel = new Label();
             ScoreLabel.Text = "Score: " + game.Score;
-            ScoreLabel.Location = new Point(13, 13);
-            Controls.Add(ScoreLabel);
+
 
             for (int i = 0; i < game.KipList.Count; i++)
             {
@@ -44,8 +45,8 @@ namespace Kipschieten.View
                 Rectangle rect = new Rectangle((int)kip.Left, (int)kip.Top, (int)kip.Size, (int)kip.Size);
                 grfx.FillEllipse(sb, rect);
             }
-            sb.Dispose();
             grfx.Dispose();
+            sb.Dispose();
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
