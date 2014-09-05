@@ -9,6 +9,9 @@ namespace Kipschieten.Model
 {
     public class Kip : IObservable<Kip>
     {
+
+        public static int DEFAULTSIZE { get { return 50; } }
+        public static int DEFAULTMAXSPEED { get { return 5; } }
         private Field Field { get; set; }
 
         public int Score { get; private set; }
@@ -39,7 +42,7 @@ namespace Kipschieten.Model
             XSpeed = xspeed;
             YSpeed = yspeed;
             Size = size;
-            Score = (int)(XSpeed + YSpeed);
+            Score = (int)(Math.Abs(XSpeed) + Math.Abs(YSpeed));
             step();
         }
 

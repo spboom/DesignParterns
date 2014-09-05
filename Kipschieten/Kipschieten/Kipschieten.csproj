@@ -46,8 +46,10 @@
   <ItemGroup>
     <Compile Include="Controller\GameController.cs" />
     <Compile Include="Model\BlockingContainer.cs" />
+    <Compile Include="Model\Coordinate.cs" />
     <Compile Include="Model\Field.cs" />
     <Compile Include="Model\Game.cs" />
+    <Compile Include="Model\GameInput.cs" />
     <Compile Include="Model\Kip.cs" />
     <Compile Include="Model\Unsubscriber.cs" />
     <Compile Include="View\Form1.cs">

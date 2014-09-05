@@ -27,13 +27,10 @@ namespace Kipschieten.View
             Controls.Add(ScoreLabel);
         }
 
-        public void draw()
+        public void draw(Game game, Graphics grfx)
         {
-            while (true)
+            if (game != null)
             {
-                Game game = Program.blockingqeueu.get();
-                SolidBrush sb = new SolidBrush(Color.Black);
-                Graphics grfx = CreateGraphics();
                 grfx.Clear(Color.White);
 
                 ScoreLabel.Text = "Score: " + game.Score;
@@ -43,10 +40,8 @@ namespace Kipschieten.View
                     Kip kip = game.KipList[i];
 
                     Rectangle rect = new Rectangle((int)kip.Left, (int)kip.Top, (int)kip.Size, (int)kip.Size);
-                    grfx.FillEllipse(sb, rect);
+                    grfx.FillEllipse(Brushes.Black, rect);
                 }
-                grfx.Dispose();
-                sb.Dispose();
             }
         }
 
@@ -54,7 +49,7 @@ namespace Kipschieten.View
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                //game.clickedOnPoint(e.X, e.Y);
+                GameController.gameController.clickedOnPoint(new Coordinate(e.X, e.Y));
             }
         }
 
@@ -66,6 +61,16 @@ namespace Kipschieten.View
         public void OnError(Exception error)
         {
             throw new NotImplementedException();
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            draw(Program.blockingqeueu.get(), e.Graphics);
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.endGame();
         }
     }
 }

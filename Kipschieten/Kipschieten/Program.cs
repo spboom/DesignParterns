@@ -12,7 +12,7 @@ namespace Kipschieten
 {
     static class Program
     {
-
+        public static bool running;
         public static BlockingContainer<Game> blockingqeueu = new BlockingContainer<Game>();
 
         /// <summary>
@@ -21,17 +21,26 @@ namespace Kipschieten
         [STAThread]
         static void Main()
         {
+            running = true;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             int Width = 300, Height = 301;
-            GameController gameController = new GameController();
-            Game game = new Game(gameController, Width, Height);
             Form1 view = new Form1(Width, Height);
+            GameController gameController = new GameController(view);
+            Game game = new Game(gameController, Width, Height);
             new Thread(() => { gameController.start(); }).Start();
-            new Thread(() => { view.Show(); view.draw(); }).Start();
+            new Thread(() =>
+            {
+                Application.Run(view);
+            }).Start();
             game.start();
 
+        }
+
+        public static void endGame()
+        {
+            running = false;
         }
 
 
