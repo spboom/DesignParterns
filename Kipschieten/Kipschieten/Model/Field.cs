@@ -11,10 +11,13 @@ namespace Kipschieten.Model
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public Field(int width, int height)
+        public Game Game { get; private set; }
+
+        public Field(int width, int height, Game game)
         {
             Width = width;
             Height = height;
+            Game = game;
         }
     }
 }

@@ -7,7 +7,7 @@ using Kipschieten.Controller;
 
 namespace Kipschieten.Model
 {
-    public class Kip : IObservable<Kip>
+    public class Kip
     {
 
         public static int DEFAULTSIZE { get { return 50; } }
@@ -16,40 +16,35 @@ namespace Kipschieten.Model
 
         public int Score { get; private set; }
 
-        public double XPos { get; set; }
+        public bool hitKip { get; set; }
 
-        public double YPos { get; set; }
 
-        public double XSpeed { get; set; }
+        public Coordinate Center { get; set; }
 
-        public double YSpeed { get; set; }
+        public int XSpeed { get; set; }
+
+        public int YSpeed { get; set; }
 
         public double Size { get; set; }
 
-        public double Left { get { return XPos - Size / 2; } }
-        public double Right { get { return XPos + Size / 2; } }
+        public double Left { get { return Center.X - Size / 2; } }
+        public double Right { get { return Center.X + Size / 2; } }
 
-        public double Top { get { return YPos - Size / 2; } }
-        public double Bottom { get { return YPos + Size / 2; } }
+        public double Top { get { return Center.Y - Size / 2; } }
+        public double Bottom { get { return Center.Y + Size / 2; } }
 
-        private IObserver<Kip> observer;
-
-        public Kip(double xpos, double ypos, double xspeed, double yspeed, double size, Field field)
+        public Kip(int xpos, int ypos, int xspeed, int yspeed, int size, Field field)
         {
             Field = field;
-            XPos = xpos;
-            YPos = ypos;
+            Center = new Coordinate(xpos, ypos);
             XSpeed = xspeed;
             YSpeed = yspeed;
             Size = size;
             Score = (int)(Math.Abs(XSpeed) + Math.Abs(YSpeed));
-            step();
         }
 
         public void step()
         {
-
-
             if (Top <= 0 && YSpeed < 0 || Bottom >= Field.Height && YSpeed > 0)
             {
                 YSpeed *= -1;
@@ -60,28 +55,29 @@ namespace Kipschieten.Model
                 XSpeed *= -1;
             }
 
-            XPos += XSpeed;
-            YPos += YSpeed;
+            Center.X += XSpeed;
+            Center.Y += YSpeed;
 
-            if (observer != null)
+            bool hit = false;
+            foreach (Kip kip in Field.Game.KipList)
             {
-                observer.OnNext(this);
+                if (kip != this && Kip.KipHitKip(this, kip))
+                {
+                    hit = true;
+                    break;
+                }
             }
+            hitKip = hit;
         }
 
-        public static bool isHit(double xpos, double ypos, Kip kip)
+        public static bool isHit(Coordinate point, Kip kip)
         {
-            if (xpos >= kip.Left && xpos <= kip.Right && ypos >= kip.Top && ypos <= kip.Bottom)
-            {
-                return true; //TODO: calculate area circle
-            }
-            return false;
+            return Coordinate.distanceBetween(point, kip.Center) <= kip.Size / 2;
         }
 
-        public IDisposable Subscribe(IObserver<Kip> observer)
+        public static bool KipHitKip(Kip kip1, Kip kip2)
         {
-            this.observer = observer;
-            return null;
+            return Coordinate.distanceBetween(kip1.Center, kip2.Center) <= kip1.Size / 2 + kip2.Size / 2;
         }
     }
 }

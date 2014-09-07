@@ -10,7 +10,7 @@ using Kipschieten.Controller;
 
 namespace Kipschieten.Model
 {
-    public class Game : IObservable<Game>
+    public class Game
     {
 
         private static int MAXSPAWNTIME { get { return 10; } }
@@ -32,7 +32,7 @@ namespace Kipschieten.Model
         public Game(GameController controller, int width, int height)
         {
             Controller = controller;
-            field = new Field(width, height);
+            field = new Field(width, height, this);
             observers = new List<IObserver<Game>>();
             timer = new System.Timers.Timer();
             timer.Elapsed += timer_Elapsed;
@@ -107,8 +107,8 @@ namespace Kipschieten.Model
             size = Kip.DEFAULTSIZE;
             x = r.Next(field.Width - size) + size / 2;
             y = r.Next(field.Height - size) + size / 2;
-            xs = r.Next(1,Kip.DEFAULTMAXSPEED) * (int)Math.Pow(-1, r.Next(2));
-            ys = r.Next(1,Kip.DEFAULTMAXSPEED) * (int)Math.Pow(-1, r.Next(2));
+            xs = r.Next(1, Kip.DEFAULTMAXSPEED) * (int)Math.Pow(-1, r.Next(2));
+            ys = r.Next(1, Kip.DEFAULTMAXSPEED) * (int)Math.Pow(-1, r.Next(2));
             KipList.Add(new Kip(x, y, xs, ys, size, field));
             setSpawnTime();
         }
@@ -119,22 +119,13 @@ namespace Kipschieten.Model
         {
             for (int i = 0; i < KipList.Count; i++)
             {
-                if (Kip.isHit(coordinate.X, coordinate.Y, KipList[i]))
+                if (Kip.isHit(coordinate, KipList[i]))
                 {
                     Score += KipList[i].Score;
                     KipList.RemoveAt(i);
-                    i--;
+                    break;
                 }
             }
-        }
-
-        public IDisposable Subscribe(IObserver<Game> observer)
-        {
-            if (!observers.Contains(observer))
-            {
-                observers.Add(observer);
-            }
-            return new Unsubscriber<Game>(observers, observer);
         }
     }
 }

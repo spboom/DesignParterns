@@ -40,7 +40,17 @@ namespace Kipschieten.View
                     Kip kip = game.KipList[i];
 
                     Rectangle rect = new Rectangle((int)kip.Left, (int)kip.Top, (int)kip.Size, (int)kip.Size);
-                    grfx.FillEllipse(Brushes.Black, rect);
+                    Brush fill;
+                    if (kip.hitKip)
+                    {
+                        fill = Brushes.Gray;
+                    }
+                    else
+                    {
+                        fill = Brushes.Black;
+                    }
+
+                    grfx.FillEllipse(fill, rect);
                 }
             }
         }
