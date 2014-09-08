@@ -14,17 +14,12 @@ namespace Kipschieten.View
 {
     public partial class Form1 : Form
     {
-
-        private IDisposable unsubscriber;
-        private Label ScoreLabel;
-
         public Form1(int w, int h)
         {
             InitializeComponent();
             ClientSize = new Size(w, h);
-            ScoreLabel = new Label();
-            ScoreLabel.Location = new Point(13, 13);
-            Controls.Add(ScoreLabel);
+            BackColor = Color.White;
+            DoubleBuffered = true;
         }
 
         public void draw(Game game, Graphics grfx)
@@ -32,8 +27,9 @@ namespace Kipschieten.View
             if (game != null)
             {
                 grfx.Clear(Color.White);
+                grfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-                ScoreLabel.Text = "Score: " + game.Score;
+                Text = "Kipschieten - Score: " + game.Score;
 
                 for (int i = 0; i < game.KipList.Count; i++)
                 {

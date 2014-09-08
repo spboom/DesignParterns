@@ -51,7 +51,6 @@
     <Compile Include="Model\Game.cs" />
     <Compile Include="Model\GameInput.cs" />
     <Compile Include="Model\Kip.cs" />
-    <Compile Include="Model\Unsubscriber.cs" />
     <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
