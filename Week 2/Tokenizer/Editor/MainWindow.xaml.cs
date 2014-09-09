@@ -24,5 +24,10 @@ namespace Editor
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Tokenizer.Tokenize(inputField.Text);
+        }
     }
 }

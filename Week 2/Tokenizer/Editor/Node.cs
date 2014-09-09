@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tokenizer
+namespace Editor
 {
-    abstract class Node<T>
+    public abstract class Node<T>
     {
         public T Value { get; set; }
 

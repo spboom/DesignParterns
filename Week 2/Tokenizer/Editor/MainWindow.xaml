@@ -7,7 +7,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <TextBox HorizontalAlignment="Left" AcceptsReturn="True" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" Grid.Row="0" Height="275"/>
-        <Button Grid.Row="1" Margin="2"/>
+        <TextBox Name="inputField" HorizontalAlignment="Left" AcceptsReturn="True" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" Grid.Row="0" Height="275"/>
+        <Button Grid.Row="1" Margin="2" Content="Compile" Click="Button_Click"/>
     </Grid>
 </Window>
