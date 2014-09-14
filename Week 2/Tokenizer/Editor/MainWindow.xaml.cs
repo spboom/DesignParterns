@@ -23,6 +23,7 @@ namespace Editor
         public MainWindow()
         {
             InitializeComponent();
+            inputField.Text = "if(true)\r\n{\r\n\treturn true;\r\n}\r\nelse\r\n{\r\n\treturn false;\r\n}";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
