@@ -65,43 +65,33 @@ namespace Editor
                 {
                     if (token.EnumType == typeof(BinaireOperator.BinaireOperators))
                     {
-                        Token[] partners = new Token[2];
                         if (i < 0 && TokenList[i - 1].EnumType == typeof(Variable))
                         {
-                            partners[0] = TokenList[i - 1];
+                           
                         }
                         if (i < TokenList.Count && TokenList[i + 1].EnumType == typeof(Variable))
                         {
-                            partners[0] = TokenList[i + 1];
+                           
                         }
-                        token.Partners = partners;
                     }
                     else if (token.EnumType == typeof(UnaireOperator.UnaireOperators))
                     {
-                        Token[] partners = new Token[1];
                         if (i < 0 && TokenList[i - 1].EnumType == typeof(Variable))
                         {
-                            partners[0] = TokenList[i - 1];
+                            
                         }
                         if (i < TokenList.Count && TokenList[i + 1].EnumType == typeof(Variable))
                         {
-                            if (partners != null)
-                            {
-                                throw new Exception("Error: Unaire operator is used as binaire operator");
-                            }
-                            partners[0] = TokenList[i + 1];
+                            
                         }
-                        token.Partners = partners;
                     }
                     else if (token.EnumType == typeof(KeyWords.keyWords) || (token.EnumValue == 0) || (token.EnumValue == 1))
                     {
-                        List<Token> partners = new List<Token>();
 
                         int pos = i;
                         bool found = false;
                         while (pos < TokenList.Count && !found)
                         {
-                            int tempLevel = 0;
                             if (TokenList[pos].EnumType == typeof(LevelChar.LevelChars) && TokenList[pos].EnumValue == (int)LevelChar.LevelChars._curlyBracketCLose && TokenList[pos].Level == token.Level + 1)
                             {
                                 found = true;
@@ -111,12 +101,11 @@ namespace Editor
 
                         if (pos < TokenList.Count && (token.EnumValue == (int)KeyWords.keyWords._elseif) || (token.EnumValue == (int)KeyWords.keyWords._else))
                         {
-                            token.Partners = new Token[1] { TokenList[pos] };
+
                         }
 
 
 
-                        token.Partners = partners.ToArray();
                     }
 
                 }

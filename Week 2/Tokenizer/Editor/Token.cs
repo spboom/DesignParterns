@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Editor
 {
-    class Token
+    public class Token
     {
         public int Line;
         public int LinePos;
@@ -14,7 +14,6 @@ namespace Editor
         public Type EnumType;
         public int EnumValue;
         public int Level;
-        public Token[] Partners;
 
         public Token(int lineNr, int level)
         {
