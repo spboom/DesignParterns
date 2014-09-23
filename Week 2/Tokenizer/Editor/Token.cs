@@ -14,6 +14,7 @@ namespace Editor
         public Type EnumType;
         public int EnumValue;
         public int Level;
+        public Token partner;
 
         public Token(int lineNr, int level)
         {

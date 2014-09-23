@@ -47,7 +47,11 @@ namespace Editor
                             }
                             if (token.EnumType == typeof(LevelChar.LevelChars))
                             {
-                                level = LevelChar.setLevel((LevelChar.LevelChars)token.EnumValue);
+                                level = LevelChar.setLevel(token);
+                            }
+                            else if (token.EnumType == typeof(KeyWords.keyWords) && token.EnumValue <= 4)
+                            {
+                                KeyWords.setKeyWord(token);
                             }
 
                             if (token.Value != null && token.Value.Length >= 1)
@@ -55,59 +59,8 @@ namespace Editor
                                 linePos--;
                             }
                             token = new Token(line, level);
-
-
                         }
                     }
-                }
-                //////////////////////////////////////////
-                for (int i = 0; i < TokenList.Count; i++)
-                {
-                    if (token.EnumType == typeof(BinaireOperator.BinaireOperators))
-                    {
-                        if (i < 0 && TokenList[i - 1].EnumType == typeof(Variable))
-                        {
-                           
-                        }
-                        if (i < TokenList.Count && TokenList[i + 1].EnumType == typeof(Variable))
-                        {
-                           
-                        }
-                    }
-                    else if (token.EnumType == typeof(UnaireOperator.UnaireOperators))
-                    {
-                        if (i < 0 && TokenList[i - 1].EnumType == typeof(Variable))
-                        {
-                            
-                        }
-                        if (i < TokenList.Count && TokenList[i + 1].EnumType == typeof(Variable))
-                        {
-                            
-                        }
-                    }
-                    else if (token.EnumType == typeof(KeyWords.keyWords) || (token.EnumValue == 0) || (token.EnumValue == 1))
-                    {
-
-                        int pos = i;
-                        bool found = false;
-                        while (pos < TokenList.Count && !found)
-                        {
-                            if (TokenList[pos].EnumType == typeof(LevelChar.LevelChars) && TokenList[pos].EnumValue == (int)LevelChar.LevelChars._curlyBracketCLose && TokenList[pos].Level == token.Level + 1)
-                            {
-                                found = true;
-                            }
-                            pos++;
-                        }
-
-                        if (pos < TokenList.Count && (token.EnumValue == (int)KeyWords.keyWords._elseif) || (token.EnumValue == (int)KeyWords.keyWords._else))
-                        {
-
-                        }
-
-
-
-                    }
-
                 }
             }
             catch (Exception)

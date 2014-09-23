@@ -8,17 +8,67 @@ namespace Editor
 {
     public class KeyWords
     {
+        public static Stack<Token> keyWordsStack = new Stack<Token>();
+
         public enum keyWords
         {
             _if = 0,
-            _elseif,
             _else,
+            _elseif,
+            _do,
             _while,
             _for,
             _foreach,
             _true,
             _false,
             _lineEnd,
+        }
+
+        public static void setKeyWord(Token token)
+        {
+            keyWords value = (keyWords)token.EnumValue;
+            switch (value)
+            {
+                case keyWords._if:
+                case keyWords._do:
+                    {
+                        keyWordsStack.Push(token);
+                        break;
+                    }
+                case keyWords._elseif:
+                    {
+                        if (keyWordsStack.Count > 0 && (keyWordsStack.Peek().EnumValue == (int)keyWords._if || keyWordsStack.Peek().EnumValue == (int)keyWords._elseif))
+                        {
+                            token.partner = keyWordsStack.Pop();
+                            keyWordsStack.Push(token);
+                        }
+                        else
+                        {
+                            throw new Exception("elseif without if or elseif, at " + (token.Line + 1) + " - " + (token.LinePos + 1));
+                        }
+                        break;
+                    }
+                case keyWords._else:
+                    {
+                        if (keyWordsStack.Count > 0 && (keyWordsStack.Peek().EnumValue == (int)keyWords._if || keyWordsStack.Peek().EnumValue == (int)keyWords._elseif))
+                        {
+                            token.partner = keyWordsStack.Pop();
+                        }
+                        else
+                        {
+                            throw new Exception("else without if or elseif, at " + (token.Line + 1) + " - " + (token.LinePos + 1));
+                        }
+                        break;
+                    }
+                case keyWords._while:
+                    {
+                        if (keyWordsStack.Count > 0 && keyWordsStack.Peek().EnumValue == (int)keyWords._do)
+                        {
+                            token.partner = keyWordsStack.Pop();
+                        }
+                        break;
+                    }
+            }
         }
 
         public string ToString(keyWords value)
@@ -31,6 +81,8 @@ namespace Editor
                     return "elseif";
                 case keyWords._else:
                     return "else";
+                case keyWords._do:
+                    return "do";
                 case keyWords._while:
                     return "while";
                 case keyWords._for:
@@ -46,10 +98,7 @@ namespace Editor
                 default:
                     return null;
             }
-
         }
-
-
     }
 
     public class BinaireOperator
@@ -139,8 +188,7 @@ namespace Editor
 
     public class LevelChar
     {
-
-        private static Stack<LevelChars> levels = new Stack<LevelChars>();
+        private static Stack<Token> levels = new Stack<Token>();
         public enum LevelChars
         {
             _bracketOpen = 0,
@@ -151,21 +199,26 @@ namespace Editor
             _curlyBracketCLose
         }
 
-        public static int setLevel(LevelChars levelChar)//TEST!!!
+        public static int setLevel(Token levelToken)
         {
-            switch (levelChar)
+            LevelChars value = (LevelChars)levelToken.EnumValue;
+            switch (value)
             {
                 case LevelChars._bracketOpen:
                 case LevelChars._curlyBracketOpen:
                 case LevelChars._hookBracketOpen:
-                    levels.Push(levelChar);
+                    levels.Push(levelToken);
                     break;
                 case LevelChars._bracketClose:
                 case LevelChars._curlyBracketCLose:
                 case LevelChars._hookBracketClose:
-                    if (levels.Peek() == (LevelChars)levelChar - 1)
+                    if (levels.Peek().EnumValue == levelToken.EnumValue - 1)
                     {
-                        levels.Pop();
+                        levelToken.partner = levels.Pop();
+                        while (KeyWords.keyWordsStack.Count > 0 && KeyWords.keyWordsStack.Peek().Level > levels.Count)
+                        {
+                            KeyWords.keyWordsStack.Pop();
+                        }
                     }
                     else
                     {
