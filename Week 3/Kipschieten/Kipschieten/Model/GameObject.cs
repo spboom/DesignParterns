@@ -13,7 +13,7 @@ namespace Kipschieten.Model
         public Coordinate Center { get; set; }
         public double Size { get; set; }
 
-        public List<List<GameObject>> DataStructures { get; private set; }
+        public List<HashSet<GameObject>> DataStructures { get; private set; }
 
         public static Spawner<GameObject> spawner;
 
@@ -39,7 +39,7 @@ namespace Kipschieten.Model
 
         public GameObject(Game game, int size)
         {
-            DataStructures = new List<List<GameObject>>();
+            DataStructures = new List<HashSet<GameObject>>();
             Field = game.field; ;
             Size = size;
             Center = new Coordinate(0, 0);
@@ -101,10 +101,10 @@ namespace Kipschieten.Model
             }
         }
 
-        public void setDataStructures(List<List<GameObject>> dataStructures)
+        public void setDataStructures(List<HashSet<GameObject>> dataStructures)
         {
             removeDataStructures();
-            
+
             DataStructures = dataStructures;
 
             for (int i = 0; i < DataStructures.Count; i++)

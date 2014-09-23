@@ -26,14 +26,13 @@ namespace Kipschieten.View
         {
             if (game != null)
             {
-                grfx.Clear(Color.White);
+                //grfx.Clear(Color.White);
                 grfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
                 Text = "Kipschieten - Score: " + game.Score;
 
-                for (int i = 0; i < game.DrawList.Count; i++)
+                foreach (GameObject gameObject in game.DrawList.ToArray())
                 {
-                    GameObject gameObject = game.DrawList[i];
 
                     Rectangle rect = new Rectangle((int)gameObject.Left, (int)gameObject.Top, (int)gameObject.Size, (int)gameObject.Size);
 
@@ -52,7 +51,7 @@ namespace Kipschieten.View
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            draw(Program.blockingqeueu.get(), e.Graphics);
+            draw(Program.blockingqeueu.peek(), e.Graphics);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

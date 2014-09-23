@@ -12,13 +12,13 @@ namespace Kipschieten.Model
         public Tree(Game game, int size)
             : base(game, size)
         {
-            setDataStructures(new List<List<GameObject>>() { game.DrawList, game.CollidableList });
+            setDataStructures(new List<HashSet<GameObject>>() { game.DrawList, game.CollidableList });
         }
 
         public Tree(Game game, int size, int xPos, int yPos)
             : base(game, size, xPos, yPos, false, true)
         {
-            setDataStructures(new List<List<GameObject>>() { game.DrawList, game.CollidableList });
+            setDataStructures(new List<HashSet<GameObject>>() { game.DrawList, game.CollidableList });
         }
 
         public override System.Drawing.Brush Color

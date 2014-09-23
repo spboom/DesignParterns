@@ -16,10 +16,11 @@ namespace Kipschieten.Model
 
         public int Score { get; set; }
 
-        public List<GameObject> ClickList = new List<GameObject>();
-        public List<GameObject> DrawList = new List<GameObject>();
-        public List<GameObject> CollidesList = new List<GameObject>();
-        public List<GameObject> CollidableList = new List<GameObject>();
+        public HashSet<GameObject> ClickList = new HashSet<GameObject>();
+        public HashSet<GameObject> DrawList = new HashSet<GameObject>();
+        public HashSet<GameObject> CollidesList = new HashSet<GameObject>();
+        public HashSet<GameObject> CollidableList = new HashSet<GameObject>();
+        public HashSet<GameObject> MoveList = new HashSet<GameObject>();
         public Field field { get; set; }
 
         static int fps = 60;
@@ -88,21 +89,19 @@ namespace Kipschieten.Model
                 chickenSpawner.spawn();
             }
 
-            for (int i = 0; i < ClickList.Count; i++)
+            foreach (GameObject gameObject in MoveList.ToArray())
             {
-                ClickList[i].step(dt);
+                gameObject.step(dt);
             }
 
-            for (int i = 0; i < CollidesList.Count; i++)
+            foreach (GameObject collidesGameObject in CollidesList.ToArray())
             {
-                GameObject collides = CollidesList[i];
-                for (int j=0; j<CollidableList.Count;j++)
+                foreach (GameObject collidableGameObject in CollidableList.ToArray())
                 {
-                    GameObject collidable = CollidableList[j];
-                    if(collides!=collidable && GameObject.isColliding(collides, collidable))
+                    if (collidesGameObject != collidableGameObject && GameObject.isColliding(collidesGameObject, collidableGameObject))
                     {
-                        collides.XSpeed *= -1;
-                        collides.YSpeed *= -1;
+                        collidesGameObject.XSpeed *= -1;
+                        collidesGameObject.YSpeed *= -1;
                     }
                 }
             }
@@ -113,11 +112,11 @@ namespace Kipschieten.Model
 
         public void clickedOnPoint(Coordinate coordinate)
         {
-            for (int i = 0; i < ClickList.Count; i++)
+            foreach (GameObject gameObject in ClickList.ToArray())
             {
-                if (GameObject.isHit(coordinate, ClickList[i]))
+                if (GameObject.isHit(coordinate, gameObject))
                 {
-                    ClickList[i].kill();
+                    gameObject.kill();
                     break;
                 }
             }

@@ -62,13 +62,13 @@ namespace Kipschieten.Model
         public Chicken(Game game, int size)
             : base(game, size)
         {
-            setDataStructures(new List<List<GameObject>>() { game.ClickList, game.CollidableList, game.CollidesList, game.DrawList });
+            setDataStructures(new List<HashSet<GameObject>>() { game.ClickList, game.CollidableList, game.CollidesList, game.DrawList, game.MoveList });
         }
 
         public Chicken(Game game, int size, int xPos, int yPos, int xSpeed, int ySpeed) :
             base(game, size, xPos, yPos, true, true, xSpeed, ySpeed)
         {
-            setDataStructures(new List<List<GameObject>>() { game.ClickList, game.CollidableList, game.CollidesList, game.DrawList });
+            setDataStructures(new List<HashSet<GameObject>>() { game.ClickList, game.CollidableList, game.CollidesList, game.DrawList, game.MoveList });
         }
 
         public override System.Drawing.Brush Color

@@ -32,5 +32,10 @@ namespace Kipschieten.Model
             block.Release();
             return temp_value;
         }
+
+        public T peek()
+        {
+            return value;
+        }
     }
 }
