@@ -8,15 +8,14 @@ namespace Editor
 {
     public class Tokenizer
     {
-
-        static List<Token> TokenList = new List<Token>();
-        public static Node<String> Tokenize(String input)
+        static List<Token> TokenList;
+        public static List<Token> Tokenize(String input)
         {
+            TokenList = new List<Token>();
             int line = 0, linePos = 0;
             Token token = new Token(0, 0);
             try
             {
-
                 String[] lines = (input + "\r").Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 int level = 0;
 
@@ -67,7 +66,7 @@ namespace Editor
             {
                 throw new Exception("Syntax error: at " + (token.Line + 1) + " - " + (token.LinePos + 1));
             }
-            return null;
+            return TokenList;
         }
     }
 }

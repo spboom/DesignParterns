@@ -6,16 +6,13 @@ using System.Threading.Tasks;
 
 namespace Editor
 {
-    public class ConditionalJump : Node
+    public class Compiler
     {
-        public Node AlternateNext { get; set; }
+        static List<Token> compilerList = new List<Token>();
 
-
-
-        public ConditionalJump()
-            : base(null)
+        public static List<Token> Compile (List<Token> token)
         {
-
+            return null;
         }
     }
 }

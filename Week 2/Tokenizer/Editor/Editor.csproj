@@ -53,10 +53,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Compiler.cs" />
     <Compile Include="ConditionalJump.cs" />
     <Compile Include="DoNothing.cs" />
     <Compile Include="Jump.cs" />
     <Compile Include="KeyWords.cs" />
+    <Compile Include="NodeFactory.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Tokenizer.cs" />
     <Page Include="MainWindow.xaml">

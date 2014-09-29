@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Editor
 {
-    public abstract class Node<T>
+    public  class Node
     {
-        public T Value { get; set; }
+        public List<Token> Value { get; set; }
 
 
-        private Node<T> next;
-        public Node<T> Next
+        private Node next;
+        public Node Next
         {
             get { return next; }
             set
@@ -25,8 +25,8 @@ namespace Editor
             }
         }
 
-        public Node<T> previous;
-        public Node<T> Previous
+        public Node previous;
+        public Node Previous
         {
             get { return previous; }
             set
@@ -40,17 +40,17 @@ namespace Editor
         }
 
 
-        public Node(T value)
+        public Node(List<Token> value)
         {
             Value = value;
         }
 
-        public void insertBefore(Node<T> value)
+        public void insertBefore(Node value)//TODO koppel next
         {
             Previous = value;
         }
 
-        public void insertAfter(Node<T> value)
+        public void insertAfter(Node value)
         {
             Next = value;
         }

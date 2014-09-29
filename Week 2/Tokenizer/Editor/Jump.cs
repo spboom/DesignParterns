@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Editor
 {
-    public class Jump<T> : Node<T>
+    public class Jump : Node
     {
-        public Jump(T value)
+        public Jump(List<Token> value)
             : base(value)
         {
 

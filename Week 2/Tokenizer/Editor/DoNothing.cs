@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Editor
 {
-    public class DoNothing : Node<Token>
+    public class DoNothing : Node
     {
         public DoNothing()
             : base(null)
