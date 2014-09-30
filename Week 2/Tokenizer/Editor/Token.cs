@@ -14,7 +14,20 @@ namespace Editor
         public Type EnumType;
         public int EnumValue;
         public int Level;
-        public Token partner;
+        private Token partner;
+
+        public Token Partner
+        {
+            get { return partner; }
+            set
+            {
+                partner = value;
+                if (value != null && value.Partner != this)
+                {
+                    value.Partner = this;
+                }
+            }
+        }
 
         public Token(int lineNr, int level)
         {

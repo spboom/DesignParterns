@@ -9,7 +9,7 @@ namespace Editor
     public  class Node
     {
         public List<Token> Value { get; set; }
-
+        // TODO: string[]
 
         private Node next;
         public Node Next

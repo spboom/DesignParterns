@@ -39,7 +39,7 @@ namespace Editor
                     {
                         if (keyWordsStack.Count > 0 && (keyWordsStack.Peek().EnumValue == (int)keyWords._if || keyWordsStack.Peek().EnumValue == (int)keyWords._elseif))
                         {
-                            token.partner = keyWordsStack.Pop();
+                            token.Partner = keyWordsStack.Pop();
                             keyWordsStack.Push(token);
                         }
                         else
@@ -52,7 +52,7 @@ namespace Editor
                     {
                         if (keyWordsStack.Count > 0 && (keyWordsStack.Peek().EnumValue == (int)keyWords._if || keyWordsStack.Peek().EnumValue == (int)keyWords._elseif))
                         {
-                            token.partner = keyWordsStack.Pop();
+                            token.Partner = keyWordsStack.Pop();
                         }
                         else
                         {
@@ -64,7 +64,7 @@ namespace Editor
                     {
                         if (keyWordsStack.Count > 0 && keyWordsStack.Peek().EnumValue == (int)keyWords._do)
                         {
-                            token.partner = keyWordsStack.Pop();
+                            token.Partner = keyWordsStack.Pop();
                         }
                         break;
                     }
@@ -212,9 +212,9 @@ namespace Editor
                 case LevelChars._bracketClose:
                 case LevelChars._curlyBracketCLose:
                 case LevelChars._hookBracketClose:
-                    if (levels.Peek().EnumValue == levelToken.EnumValue - 1)
+                    if (levels.Count > 0 && levels.Peek().EnumValue == levelToken.EnumValue - 1)
                     {
-                        levelToken.partner = levels.Pop();
+                        levelToken.Partner = levels.Pop();
                         while (KeyWords.keyWordsStack.Count > 0 && KeyWords.keyWordsStack.Peek().Level > levels.Count)
                         {
                             KeyWords.keyWordsStack.Pop();
@@ -222,11 +222,11 @@ namespace Editor
                     }
                     else
                     {
-                        throw new Exception();
+                        throw new Exception("Syntax error: at " + (levelToken.Line + 1) + " - " + (levelToken.LinePos + 1));
                     }
                     break;
                 default:
-                    throw new Exception();
+                    throw new Exception("Syntax error: at " + (levelToken.Line + 1) + " - " + (levelToken.LinePos + 1));
             }
             return levels.Count;
         }
