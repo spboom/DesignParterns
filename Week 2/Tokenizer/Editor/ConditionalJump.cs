@@ -10,8 +10,6 @@ namespace Editor
     {
         public Node AlternateNext { get; set; }
 
-
-
         public ConditionalJump()
             : base(null)
         {
