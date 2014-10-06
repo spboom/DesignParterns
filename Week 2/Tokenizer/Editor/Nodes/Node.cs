@@ -8,7 +8,7 @@ namespace Editor
 {
     public  class Node
     {
-        public List<Token> Value { get; set; }
+        public Token Value { get; set; }
         // TODO: string[]
 
         private Node next;
@@ -40,7 +40,7 @@ namespace Editor
         }
 
 
-        public Node(List<Token> value)
+        public Node(Token value)
         {
             Value = value;
         }

@@ -53,12 +53,36 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Compiler.cs" />
-    <Compile Include="ConditionalJump.cs" />
-    <Compile Include="DoNothing.cs" />
-    <Compile Include="Jump.cs" />
+    <Compile Include="CompilerAddOne.cs" />
+    <Compile Include="CompilerMinusOne.cs" />
+    <Compile Include="CompilerNegative.cs" />
+    <Compile Include="Compilers\CompileIfGeneral.cs" />
+    <Compile Include="Compilers\Compiler.cs" />
+    <Compile Include="Compilers\CompilerAdd.cs" />
+    <Compile Include="Compilers\CompilerAnd.cs" />
+    <Compile Include="Compilers\CompilerDivide.cs" />
+    <Compile Include="Compilers\CompilerDoWhile.cs" />
+    <Compile Include="Compilers\CompilerEquals.cs" />
+    <Compile Include="Compilers\CompilerFactory.cs" />
+    <Compile Include="Compilers\CompilerFor.cs" />
+    <Compile Include="Compilers\CompilerForEach.cs" />
+    <Compile Include="Compilers\CompilerGreaterThanOrEquals.cs" />
+    <Compile Include="Compilers\CompilerGreaterThan.cs" />
+    <Compile Include="Compilers\CompilerIf.cs" />
+    <Compile Include="Compilers\CompilerIfElse.cs" />
+    <Compile Include="Compilers\CompilerMinus.cs" />
+    <Compile Include="Compilers\CompilerMultiply.cs" />
+    <Compile Include="Compilers\CompilerNotEquals.cs" />
+    <Compile Include="Compilers\CompilerOperator.cs" />
+    <Compile Include="Compilers\CompilerOr.cs" />
+    <Compile Include="Compilers\CompilerSet.cs" />
+    <Compile Include="Compilers\CompilerSmallerThan.cs" />
+    <Compile Include="Compilers\CompilerSmallerThanOrEquals.cs" />
+    <Compile Include="Compilers\CompilerWhile.cs" />
+    <Compile Include="Nodes\ConditionalJump.cs" />
+    <Compile Include="Nodes\DoNothing.cs" />
+    <Compile Include="Nodes\Jump.cs" />
     <Compile Include="KeyWords.cs" />
-    <Compile Include="NodeFactory.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Tokenizer.cs" />
     <Page Include="MainWindow.xaml">
@@ -75,7 +99,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Node.cs" />
+    <Compile Include="Nodes\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
