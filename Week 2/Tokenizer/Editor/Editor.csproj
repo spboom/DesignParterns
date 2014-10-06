@@ -53,9 +53,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CompilerAddOne.cs" />
-    <Compile Include="CompilerMinusOne.cs" />
-    <Compile Include="CompilerNegative.cs" />
+    <Compile Include="Compilers\CompilerAddOne.cs" />
+    <Compile Include="Compilers\CompilerMinusOne.cs" />
+    <Compile Include="Compilers\CompilerNegative.cs" />
     <Compile Include="Compilers\CompileIfGeneral.cs" />
     <Compile Include="Compilers\Compiler.cs" />
     <Compile Include="Compilers\CompilerAdd.cs" />
