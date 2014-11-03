@@ -59,16 +59,16 @@ namespace Kipschieten.Model
 
         public int Score { get { return Math.Abs(XSpeed) + Math.Abs(YSpeed); } }
 
-        public Chicken(Game game, int size)
-            : base(game, size)
+        public Chicken(Level level, int size)
+            : base(level, size)
         {
-            setDataStructures(new List<HashSet<GameObject>>() { game.Level.ClickList, game.Level.CollidableList, game.Level.CollidesList, game.Level.DrawList, game.Level.MoveList });
+            setDataStructures(new List<HashSet<GameObject>>() { level.ClickList, level.CollidableList, level.CollidesList, level.DrawList, level.MoveList });
         }
 
-        public Chicken(Game game, int size, int xPos, int yPos, int xSpeed, int ySpeed) :
-            base(game, size, xPos, yPos, true, true, xSpeed, ySpeed)
+        public Chicken(Level level, int size, int xPos, int yPos, int xSpeed, int ySpeed) :
+            base(level, size, xPos, yPos, true, true, xSpeed, ySpeed)
         {
-            setDataStructures(new List<HashSet<GameObject>>() { game.Level.ClickList, game.Level.CollidableList, game.Level.CollidesList, game.Level.DrawList, game.Level.MoveList });
+            setDataStructures(new List<HashSet<GameObject>>() { level.ClickList, level.CollidableList, level.CollidesList, level.DrawList, level.MoveList });
         }
 
         public override System.Drawing.Brush Color

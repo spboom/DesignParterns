@@ -53,6 +53,9 @@
     <Compile Include="Model\GameInput.cs" />
     <Compile Include="Model\GameObject.cs" />
     <Compile Include="Model\Chicken.cs" />
+    <Compile Include="Model\IObservable.cs" />
+    <Compile Include="Model\PlayState.cs" />
+    <Compile Include="Model\State.cs" />
     <Compile Include="Model\Level.cs" />
     <Compile Include="Model\LevelFactory.cs" />
     <Compile Include="Model\Spawner.cs" />

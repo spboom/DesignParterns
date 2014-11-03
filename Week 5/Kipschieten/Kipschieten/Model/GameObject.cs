@@ -24,7 +24,7 @@ namespace Kipschieten.Model
         public abstract int MAXXSPEED { get; }
         public abstract int MINXSPEED { get; }
 
-
+        private Level Level { get; set; }
 
         public double Left { get { return Center.X - Size / 2; } }
         public double Right { get { return Center.X + Size / 2; } }
@@ -37,16 +37,17 @@ namespace Kipschieten.Model
         public bool Collides { get; set; }
         public bool Collidable { get; set; }
 
-        public GameObject(Game game, int size)
+        public GameObject(Level level, int size)
         {
+            Level = level;
             DataStructures = new List<HashSet<GameObject>>();
-            Field = game.Level.Field ;
+            Field = level.Field;
             Size = size;
             Center = new Coordinate(0, 0);
         }
 
-        public GameObject(Game game, int size, int xPos, int yPos, bool collides, bool colidable, int xSpeed = 0, int ySpeed = 0)
-            : this(game, size)
+        public GameObject(Level level, int size, int xPos, int yPos, bool collides, bool colidable, int xSpeed = 0, int ySpeed = 0)
+            : this(level, size)
         {
             Center = new Coordinate(xPos, yPos);
             XSpeed = xSpeed;
@@ -74,7 +75,7 @@ namespace Kipschieten.Model
 
         public void collide()
         {
-            foreach (Chicken kip in Field.Game.Level.ClickList)
+            foreach (Chicken kip in Level.ClickList)
             {
                 //if (kip != this && Kip.KipHitKip(this, kip)) //TODO!!
                 {

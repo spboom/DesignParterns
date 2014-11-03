@@ -8,11 +8,11 @@ namespace Kipschieten.Model
 {
     class Factory
     {
-        public static GameObject createGameObject(String Class, Game game)
+        public static GameObject createGameObject(String Class, Level level)
         {
             String Namespace = typeof(Factory).Namespace;
             Type type = Type.GetType(Namespace + "." + Class);
-            GameObject gameObject = (GameObject)Activator.CreateInstance(type, game, 0);
+            GameObject gameObject = (GameObject)Activator.CreateInstance(type, level, 0);
             return gameObject;
         }
     }

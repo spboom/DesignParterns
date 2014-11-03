@@ -7,11 +7,19 @@ using Kipschieten.Controller;
 
 namespace Kipschieten.Model
 {
-    public class Level
+    public class Level : IObservable<String>
     {
+        IObserver<String> observer;
+
+        int amountToLoze = 10;
+        int killsForNextLevel = 10;
+        int kills;
         public Field Field { get; private set; }
 
         public int levelScore;
+
+        public double spawnMax;
+        public double spawnMin;
 
         public HashSet<GameObject> ClickList = new HashSet<GameObject>();
         public HashSet<GameObject> DrawList = new HashSet<GameObject>();
@@ -20,11 +28,14 @@ namespace Kipschieten.Model
         public HashSet<GameObject> MoveList = new HashSet<GameObject>();
 
         public TimedSpawner<Chicken> chickenSpawner;
+        public float Id { get; set; }
 
-        public Level(Field field, int score)
+        public Level(int width, int height, Game game, float id)
         {
-            Field = field;
-            levelScore = score;
+            Id = id;
+            Field = new Field(width, height, game);
+            levelScore = 0;
+            kills = 0;
         }
 
         public void update(double dt)
@@ -58,6 +69,16 @@ namespace Kipschieten.Model
                     }
                 }
             }
+
+            if (MoveList.Count >= amountToLoze)
+            {
+                observer.OnNext("-1");
+            }
+
+            else if (kills >= killsForNextLevel)
+            {
+                observer.OnNext("" + Id);
+            }
         }
         public void clickedOnPoint(Coordinate coordinate)
         {
@@ -66,9 +87,16 @@ namespace Kipschieten.Model
                 if (GameObject.isHit(coordinate, gameObject))
                 {
                     gameObject.kill();
+                    kills++;
                     break;
                 }
             }
+        }
+
+        public IDisposable Subscribe(IObserver<string> observer)
+        {
+            this.observer = observer;
+            return null;
         }
     }
 }

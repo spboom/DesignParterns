@@ -14,6 +14,8 @@ namespace Kipschieten
     {
         public static bool running;
         public static BlockingContainer<Game> blockingqeueu = new BlockingContainer<Game>();
+        public static Game Game;
+        public static readonly int WIDTH = 300, HEIGHT = 301;
 
         /// <summary>
         /// The main entry point for the application.
@@ -25,16 +27,17 @@ namespace Kipschieten
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            int Width = 300, Height = 301;
-            Form1 view = new Form1(Width, Height);
+            Form1 view = new Form1(WIDTH, HEIGHT);
             GameController gameController = new GameController(view);
-            Game game = new Game(gameController, Width, Height);
+            Game = new Game(gameController, WIDTH, HEIGHT);
+            LevelFactory.init();
+            Game.State = new PlayState(Game);
             new Thread(() => { gameController.start(); }).Start();
             new Thread(() =>
             {
                 Application.Run(view);
             }).Start();
-            game.start();
+            Game.start();
 
         }
 
