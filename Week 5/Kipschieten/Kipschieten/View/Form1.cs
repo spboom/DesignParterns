@@ -22,24 +22,6 @@ namespace Kipschieten.View
             DoubleBuffered = true;
         }
 
-        public void draw(Game game, Graphics grfx)
-        {
-            if (game != null)
-            {
-                //grfx.Clear(Color.White);
-                grfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
-                Text = "Kipschieten - Score: " + game.Score;
-
-                foreach (GameModel gameObject in game.DrawList.ToArray())
-                {
-
-                    Rectangle rect = new Rectangle((int)gameObject.Left, (int)gameObject.Top, (int)gameObject.Size, (int)gameObject.Size);
-
-                    grfx.FillEllipse(gameObject.Color, rect);
-                }
-            }
-        }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -51,7 +33,8 @@ namespace Kipschieten.View
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            draw(Program.blockingqeueu.peek(), e.Graphics);
+            Program.Game.State.paint(e.Graphics);
+            Text = "Kipschieten - Score: " + Program.Game.Score;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

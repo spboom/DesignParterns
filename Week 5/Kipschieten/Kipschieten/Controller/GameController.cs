@@ -17,7 +17,7 @@ namespace Kipschieten.Controller
 
         public static GameController gameController;
 
-        public static BlockingContainer<GameInputController> inputContainer = new BlockingContainer<GameInputController>();
+        public static BlockingContainer<GameInput> inputContainer = new BlockingContainer<GameInput>();
 
         private Game game;
 
@@ -60,15 +60,33 @@ namespace Kipschieten.Controller
 
         public void clickedOnPoint(Coordinate coordinate)
         {
-            GameInputController input = inputContainer.get();
+            GameInput input = inputContainer.get();
             if (input == null)
             {
-                input = new GameInputController();
+                input = new GameInput();
             }
             input.Game = game;
             input.Input.Enqueue(coordinate);
 
             inputContainer.set(input);
+        }
+
+        public void ShowDialog(string message)
+        {
+            Form form = new Form();
+            form.Width = 500;
+            form.Height = 150;
+            form.StartPosition = FormStartPosition.CenterParent;
+
+            Label textLabel = new Label() { Left = 50, Top = 20, Width = 400, Text = message };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70 };
+            confirmation.Click += (sender, e) => { form.Close(); };
+
+            form.Controls.Add(confirmation);
+            form.Controls.Add(textLabel);
+            form.AcceptButton = confirmation;
+            form.ShowDialog();
+
         }
     }
 }

@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace Kipschieten.Model
 {
-    public class Spawner<T> where T : GameModel
+    public class Spawner<T> where T : GameObject
     {
 
-        protected Game Game;
+        protected Level Level;
 
-        public Spawner(Game game)
+        public Spawner(Level game)
         {
-            Game = game;
+            Level = game;
         }
         public virtual void spawn(T gameObject)
         {
             Random r = new Random();
             int x, y, xs, ys, size;
             size = r.Next(gameObject.MINSIZE, gameObject.MAXSIZE);
-            x = r.Next(Game.field.Width - size) + size / 2;
-            y = r.Next(Game.field.Height - size) + size / 2;
+            x = r.Next(Level.Field.Width - size) + size / 2;
+            y = r.Next(Level.Field.Height - size) + size / 2;
             xs = r.Next(gameObject.MINXSPEED, gameObject.MAXXSPEED) * (int)Math.Pow(-1, r.Next(2));
             ys = r.Next(gameObject.MINYSPEED, gameObject.MAXYSPEED) * (int)Math.Pow(-1, r.Next(2));
 

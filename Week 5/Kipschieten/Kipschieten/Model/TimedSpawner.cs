@@ -7,16 +7,20 @@ using System.Timers;
 
 namespace Kipschieten.Model
 {
-    class TimedSpawner<T> : Spawner<T> where T : GameModel
+    public class TimedSpawner<T> : Spawner<T> where T : GameObject
     {
-        private static int MAXSPAWNTIME { get { return 10; } }
-        private static int MINSPAWNTIME { get { return 5; } }
+
+        private static Random random = new Random();
+        public int maxSpawnTime { get; set; }
+        public int minSpawnTime { get; set; }
 
         private System.Timers.Timer timer;
 
-        public TimedSpawner(Game game)
+        public TimedSpawner(Level game, int minInterval, int maxInterval)
             : base(game)
         {
+            minSpawnTime = minInterval;
+            maxSpawnTime = maxInterval;
             timer = new System.Timers.Timer();
             timer.Elapsed += timer_Elapsed;
             setSpawnTime();
@@ -24,12 +28,12 @@ namespace Kipschieten.Model
         }
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            spawn((T)ObjectFactory.createGameObject(typeof(T).Name, Game));
+            spawn((T)Factory.createGameObject(typeof(T).Name, Level));
         }
 
         private void setSpawnTime()
         {
-            timer.Interval = TimeSpan.FromSeconds(new Random().Next(MINSPAWNTIME, MAXSPAWNTIME)).TotalMilliseconds;
+            timer.Interval = random.Next(minSpawnTime, maxSpawnTime);
         }
 
         public override void spawn(T gameObject)

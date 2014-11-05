@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Kipschieten.Model
 {
-    class Tree : GameModel
+    class Tree : GameObject
     {
 
-        public Tree(Game game, int size)
-            : base(game, size)
+        public Tree(Level level, int size)
+            : base(level, size)
         {
-            setDataStructures(new List<HashSet<GameModel>>() { game.DrawList, game.CollidableList });
+            setDataStructures(new List<HashSet<GameObject>>() { level.DrawList, level.CollidableList });
         }
 
-        public Tree(Game game, int size, int xPos, int yPos)
-            : base(game, size, xPos, yPos, false, true)
+        public Tree(Level level, int size, int xPos, int yPos)
+            : base(level, size, xPos, yPos, false, true)
         {
-            setDataStructures(new List<HashSet<GameModel>>() { game.DrawList, game.CollidableList });
+            setDataStructures(new List<HashSet<GameObject>>() { level.DrawList, level.CollidableList });
         }
 
         public override System.Drawing.Brush Color
