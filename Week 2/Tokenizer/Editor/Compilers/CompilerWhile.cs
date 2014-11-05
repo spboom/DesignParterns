@@ -6,7 +6,56 @@ using System.Threading.Tasks;
 
 namespace Editor
 {
-    class CompilerWhile : Compiler
+    public class CompilerWhile : Compiler
     {
+        public CompilerWhile()
+        {
+
+        }
+
+        public static override Node Compile(List<Token> tokenList)
+        {
+            int i = 1;
+            Token close = tokenList[i].Partner;
+            i++;
+
+            Node FirstConditionNode = null;
+            Node LastConditionNode = null;
+            while (tokenList[i] != close)
+            {
+                Node node = new Node(tokenList[i]);
+                LastConditionNode.Next = node;
+                LastConditionNode = node;
+                if (FirstConditionNode == null)
+                {
+                    FirstConditionNode = LastConditionNode;
+                }
+                i++;
+            }
+            Node FirstStatementNode = null;
+            Node LastStatementNode = null;
+            i++;
+            close = tokenList[i].Partner;
+            while (tokenList[i] != close)
+            {
+                Node node = new Node(tokenList[i]);
+                LastStatementNode.Next = node;
+                LastStatementNode = node;
+                if (FirstConditionNode == null)
+                {
+                    FirstStatementNode = LastStatementNode;
+                }
+                i++;
+            }
+
+            return null;
+        }
+
+        public static override Token getLastToken()
+        {
+            return null;
+        }
+
+
     }
 }
